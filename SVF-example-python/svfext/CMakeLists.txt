@@ -1,0 +1,11 @@
+project(svfext)
+llvm_map_components_to_libnames(llvm_libs bitwriter core ipo irreader instcombine instrumentation target linker analysis scalaropts support )
+file (GLOB SOURCES
+   *.cpp
+)
+ADD_LIBRARY(svfext SHARED ${SOURCES})
+
+target_link_libraries(svfext ${SVF_LIB} ${LLVMCudd} ${llvm_libs})
+target_link_libraries(svfext ${Z3_LIBRARIES})
+set_target_properties(svfext PROPERTIES
+                       RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
